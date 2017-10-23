@@ -1,0 +1,24 @@
+＊DIコンテナからインスタンスを取り出す実装例(16-17p)
+
+ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+UserService userService = context.getBean(UserService.class);
+
+-------
+
+@Configuration
+public class AppConfig {
+	@Bean
+	UserRepository userRepository(){
+		return new UserRepositoryImpl();
+	{
+
+	@Bean
+	PasswordEncoder passwordEncoder(){
+		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	UserService userService(){
+		return new UserServiceImpl(userRepository(), passwordEncoder());
+	}
+}

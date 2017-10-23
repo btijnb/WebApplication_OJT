@@ -1,0 +1,5 @@
+＊インターフェイスを引数で受け取る例(p14)
+
+UserRepository userRepository = new JdbcUserRepository(dataSource);
+PasswordEncoder passwordEncoder = new BCryptPasswordEncdoer();
+UserService userService = new UserServiceImpl(userRepository, passwordEncoder);

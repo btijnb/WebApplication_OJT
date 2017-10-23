@@ -1,0 +1,40 @@
+＊ユーザー登録処理の実装例(p13)
+
+Public interface UserService {
+	void register(User user, String rawPassword);
+}
+
+---------
+
+Public interface PasswordEncoder {
+	String encode(String rawPassword);
+}
+
+---------
+
+Public interface UserRepository {
+	User Save(User user);
+	int countByUsername(String username);
+}
+
+---------
+
+Public class UserServiceImpl implements UserService {
+	private final UserRepository userRepository;
+	private final PasswordEncoder passwordEncoder;
+
+	public UserServiceImpl(javax.sql.DataSource dataSource) {
+		this.userRepository=new JdbcUserRepository(dataSource):
+		this.passwordEncoder=new BCryptPasswordEncoder();
+	}
+
+	public void register(User user, String rawPassword){
+		if (this.userRepository.countByUsername(user.getUsername())>0) {
+			throw new UserAlreadyRegisteredException();
+		}
+
+		user.setPassword(this.passwordEncoder.encode(rawPassword));
+		this.userRepository.save(user);
+
+	}
+}

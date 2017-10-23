@@ -1,0 +1,39 @@
+＊ユーザー登録処理の実装例(Annotation Comfiguration利用)(p21-23)
+
+-------
+
+Import org.springframework.beans.factory.annotation.Autowired;
+Import org.springframework.stereotype.Component;
+
+
+@Component
+public class UserRepositoryImpl implements UserRepository {
+
+}
+
+-------
+
+@Component
+public class BCryptPasswordEncoder implements PasswordEncoder {
+
+} 
+
+-------
+
+@Component
+public class UserServiceImpl implements UserService {
+	@Autowired
+	public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+
+	}
+
+}
+
+-------
+
+import org.springframework.context.annotation.ComponentScan;
+
+@Configuration
+@ComponentScan("com.example.demo")
+Public class AppConfig {
+}
