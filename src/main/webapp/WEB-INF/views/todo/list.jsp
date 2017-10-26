@@ -3,40 +3,42 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Todo List</title>
+</head>
+
 <style type="text/css">
 .strike {<!--I think it wouldn't be being used anymore-->
-	text-decoration: line-through;
+	text-decoration:line-through;
+	
 }
 
 .alert {
 	border: 1px solid;
 }
 
-.alert-error{
+.alert-error {
 	background-color: #c60f13;
 	border-color: #970b0e;
 	color: white;
 }
 
-.alert-success{
+.alert-success {
 	background-color: #5da423;
-	border-color:457a1a;
+	border-color: #457a1a;
 	color: white;
-
+}
+	
 .text-error{
-	color: #c60f13;
-}	
-
+	color:#c60f13;
 }
 
 </style>
-</head>
+
 <body>
 	<h1>Todo List</h1>
 	<div id="todoForm">
-		
+
 		<t:messagesPanel />
-		
+
 		<form:form action="${pageContext.request.contextPath}/todo/create"
 			method="post" modelAttribute="todoForm">
 			<form:input path="todoTitle" />
@@ -52,11 +54,20 @@
 			<c:forEach items="${todos}" var="todo">
 				<li><c:choose>
 						<c:when test="${todo.finished}">
-							<span style="text-decoration: line-through;"> ${f:h(todo.todoTitle)} </span>
+							<span class="strike">${f:h(todo.todoTitle)} </span>
 						</c:when>
 						<c:otherwise>
-						${f:h(todo.todoTitle)}
-					</c:otherwise>
+							${f:h(todo.todoTitle)}
+							
+							<!--In tutorial, " that is after /todo/ is missing-->
+							<form:form action="${pageContext.request.contextPath}/todo/finish" 
+								method="post" modelAttribute="todoForm"
+								cssStyle="display: inline-block;">
+
+								<form:hidden path="todoId" value="${f:h(todo.todoId)}" />
+								<form:button>Finish</form:button>
+							</form:form>
+						</c:otherwise>
 					</c:choose></li>
 			</c:forEach>
 
