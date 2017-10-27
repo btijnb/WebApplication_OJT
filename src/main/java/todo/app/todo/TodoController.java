@@ -20,6 +20,7 @@ import org.terasoluna.gfw.common.message.ResultMessages;
 
 import todo.app.todo.TodoForm.TodoCreate;
 import todo.app.todo.TodoForm.TodoFinish;
+import todo.app.todo.TodoForm.TodoDelete;
 import todo.domain.model.Todo;
 import todo.domain.service.todo.TodoService;
 
@@ -87,6 +88,29 @@ public class TodoController {
 
     attributes.addFlashAttribute(
         ResultMessages.success().add(ResultMessage.fromText("Finished successfully!")));
+    return "redirect:/todo/list";
+  }
+
+  @RequestMapping(value = "delete", method = RequestMethod.POST)
+  public String delete(
+      @Validated({Default.class, TodoDelete.class}) TodoForm form,
+      BindingResult bindingResult,
+      Model model,
+      RedirectAttributes attributes) {
+
+    if (bindingResult.hasErrors()) {
+      return list(model);
+    }
+
+    try {
+      todoService.delete(form.getTodoId());
+    } catch (BusinessException e) {
+      model.addAttribute(e.getResultMessages());
+      return list(model);
+    }
+
+    attributes.addFlashAttribute(
+        ResultMessages.success().add(ResultMessage.fromText("Deleted successfully!")));
     return "redirect:/todo/list";
   }
 }

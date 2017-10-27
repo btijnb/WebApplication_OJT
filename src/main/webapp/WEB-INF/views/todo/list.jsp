@@ -68,7 +68,17 @@
 								<form:button>Finish</form:button>
 							</form:form>
 						</c:otherwise>
-					</c:choose></li>
+					</c:choose>
+					
+					<form:form
+						action="${pageContext.request.contextPath}/todo/delete"
+						method="post" modelAttribute="todoForm"
+						cssStyle="display: inline-block;">
+						
+						<form:hidden path="todoId" value="${f:h(todo.todoId)}" />
+						<form:button>Delete</form:button>
+					</form:form>
+					</li>
 			</c:forEach>
 
 		</ul>
