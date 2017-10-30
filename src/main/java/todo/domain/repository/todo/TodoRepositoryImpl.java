@@ -24,7 +24,7 @@ public class TodoRepositoryImpl implements TodoRepository {
 
   @Override
   public void create(Todo todo) {
-    TODO_MAP.put(todo.getTodoId(), todo);
+    TODO_MAP.put(todo.getTodoId(), todo); //Why doesn't it retrun anything?
   }
 
   @Override
