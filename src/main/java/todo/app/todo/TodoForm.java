@@ -10,9 +10,11 @@ public class TodoForm implements Serializable {
 
   public static interface TodoFinish {};
 
+  public static interface TodoDelete {}; //[Q]inner classの用途は、@NotNullを分類するためだけだろうか→一応ガイドには似たような説明されている。
+
   private static final long serialVersionUID = 1L;
 
-  @NotNull(groups = {TodoFinish.class})
+  @NotNull(groups = {TodoFinish.class, TodoDelete.class})
   private String todoId;
 
   @NotNull(groups = {TodoCreate.class})
