@@ -82,7 +82,7 @@ public class TodoServiceImpl implements TodoService {
     todo.setFinished(true);
     todoRepository.update(todo);
 
-    return todo;
+    return todo; //where is it going after returned?
   }
 
   @Override
